@@ -1,0 +1,79 @@
+<br>
+<div>
+    <!-- The form below should invoke the method ProductsController.showProducts -->
+    <form id="filter-form" >
+        <label for="destinacijaId">Destinacija</label>
+        <select id="destinacijaId" name="destinacijaId">
+            <option th:value="0" text="Одберете дестинација"></option>
+            <option th:each="dest: ${destinacii}" th:value="${dest.id_destinacija}" th:text="${dest.ime_destinacija}">
+                Одберете дестинација</option>
+        </select>
+        <button id="filter" type="submit" class="btn btn-info">
+            <i class="fa fa-filter" aria-hidden="true"> Filter
+            </i></button>
+    </form>
+    <br>
+    <div>
+        <!-- ProductsController.showAdd -->
+        <a href="/linii/add" sec:authorize="hasRole('ROLE_ADMIN')" class=" btn btn-secondary add-item" >
+            <i class="fa fa-globe" aria-hidden="true"> Додади нова линија </i>
+        </a>
+    </div>
+    <div class="table-responsive">
+    <table class="table table-striped" id="linii">
+        <thead>
+        <tr>
+            <th>Датум</th>
+            <th>Цена</th>
+            <th>Почетна дестинација</th>
+            <th>Крајна дестинација</th>
+            <th>Компании</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <!-- For each product you should have one <tr> like below -->
+
+
+        <tr class="item" th:each="lin: ${linii}" >
+            <td th:text="${#dates.format(lin.vreme, 'MM/dd/yyyy')}" >
+
+            </td>
+            <td th:text="${lin.cena}">[lin.cena]</td>
+            <td th:text="${lin.pocetna?.ime_destinacija}">
+</td>
+            <!--/*@thymesVar id="ime_destinacija" type=""*/-->
+            <td th:text="${lin.krajna?.ime_destinacija}">
+            </td>
+            <td>
+            <ul>
+                <!-- For each product's category you should display one <li> element like the one below -->
+<li th:each="komp: ${lin.kompanii}" th:value="${komp.id_kompanija}" th:text="${komp.ime_kompanija}"></li>
+            </ul>
+            </td>
+            <td>
+                <form th:action="@{'/rezervacii/add-linija/{id}' (id=${lin.id_linija})}"
+                      sec:authorize="isAuthenticated()"
+                      th:method="POST">
+                    <button type="submit"
+                            class=" btn btn btn-info cart-product">
+                        <i class="fa fa-shopping-cart"> Rezerviraj</i>
+                    </button>
+                </form>
+                <br>
+                <!-- ProductsController.delete -->
+                <form th:method="POST" th:action="@{'/linii/{id}/delete' (id=${lin.id_linija})}" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <button type="submit" class="delete-item btn btn-danger">
+                        <i class="fa fa-trash"> Delete</i> </button>
+                </form>
+                <br>
+                <!-- ProductsController.showEdit -->
+                <a th:href="@{'/linii/{id}/edit' (id=${lin.id_linija})}" sec:authorize="hasRole('ROLE_ADMIN')" class="edit-item btn btn-warning">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</div>

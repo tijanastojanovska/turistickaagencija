@@ -1,0 +1,122 @@
+<footer class="text-black-50 mt-xl-5" xmlns:th="http://www.thymeleaf.org" >
+    <div class="container">
+        <div class="row" style="align-content: center">
+            <!-- DayPilot library -->
+
+            <div class="col-sm-4" id="mapid" style="width:30%; height: 300px;  margin-bottom: 20px"></div>
+
+
+            <div id="map" class="col-sm-4" style="width:30%; height: 300px;  margin-left: 40px; margin-bottom: 20px"></div>
+
+            <script th:inline="javascript" >
+                var map = L.map('mapid', {center: [42.00311530048647,21.398902300000003], zoom: 13});
+                L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap'
+                }).addTo(map);
+                var data = [[${adresi}]] ;
+                for(var i=0;i<data.length;i++)
+                {
+                   var marker= L.marker([42.00311530048647,21.398902300000003]).addTo(map);
+                        marker.bindPopup(
+                            "Име : "+data[i].name+'<br>'
+                            +"Лоциран на улица: "+data[i].address+'<br>'
+                            +"Општина: "+data[i].area
+                        ).openPopup();
+
+                }
+
+                var mapd = L.map('map', {center: [42.00311530048647,21.398902300000003], zoom: 3});
+                L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap'
+                }).addTo(mapd);
+                var data2 = [[${destinacii}]] ;
+                for(var j=0;j<data2.length;j++)
+                {
+                    var m= L.marker([data2[j].latitude,data2[j].longitude]).addTo(mapd);
+                    m.bindPopup(
+                        "Име : "+data2[j].ime_destinacija+'<br>'
+                        +"Држава "+data2[j].drzhava+'<br>'
+
+                    ).openPopup();
+
+                }
+            </script>
+        </div>
+    <div class="row">
+
+        <div class="col-sm-6">
+            <h6>Учество на компаниите во реализација на линиите</h6>
+            <br>
+            <svg width="300" height="200"> </svg>
+            <script>
+                var data = [[${statistiki}]];
+                var komp = "[[${br}]]";
+                var d = [];
+                var k = komp.substring(1, komp.length-1);
+                var kk = k.split(",");
+
+                for(let i=0; i< data.length; i++){
+                    d.push({broj: data[i], kompanija: kk[i]})
+                };
+                var svg = d3.select("svg"),
+                    width = svg.attr("width"),
+                    height = svg.attr("height"),
+                    radius = Math.min(width, height) / 2,
+                    g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+                var color = d3.scaleOrdinal(['#4daf4a','#377eb8','#ff7f00','#984ea3','#e41a1c']);
+
+                // Generate the pie
+                var pie = d3.pie();
+
+                // Generate the arcs
+                var arc = d3.arc()
+                    .innerRadius(0)
+                    .outerRadius(radius);
+
+                //Generate groups
+                var arcs = g.selectAll("arc")
+                    .data(pie(data))
+                    .enter()
+                    .append("g")
+                    .attr("class", "arc")
+
+                //Draw arc paths
+                arcs.append("path")
+                    .attr("fill", function(d, i) {
+                        return color(i);
+                    })
+                    .attr("d", arc);
+                var label = d3.arc()
+                    .outerRadius(radius)
+                    .innerRadius(radius - 80);
+                arcs.append("text")
+                    .attr("transform", function(d) {
+                        return "translate(" + label.centroid(d) + ")";
+                    })
+                    .text(function(d,i){return kk[i];});
+
+                // svg.append("g")
+                //     .attr("transform", "translate(" + (width / 2 - 120) + "," + 2 + ")")
+                //     .append("text")
+                //     .text("Учество на компании")
+                //     .attr("class", "title")
+            </script>
+        </div>
+
+        <div class="col-sm-6">
+            <h5>Contact</h5>
+            <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+            <ul class="list-unstyled">
+                <li><i class="fa fa-home mr-2"></i> Sunset Vacations</li>
+                <li><i class="fa fa-envelope mr-2"></i> sunsetvacations@example.com</li>
+                <li><i class="fa fa-phone mr-2"></i> + 33 12 14 15 16</li>
+
+            </ul>
+        </div>
+
+    </div>
+
+
+    </div>
+</footer>

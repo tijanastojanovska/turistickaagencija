@@ -1,0 +1,15 @@
+
+<form th:method="POST" th:action="@{'/kompanii/{id}' (id=${kompanija?.id_kompanija})}">
+    <div>
+        <label for="ime_kompanija">Name</label>
+        <input type="text"
+               id="ime_kompanija"
+               name="ime_kompanija"
+               th:value="${kompanija?.ime_kompanija}"
+               required>
+    </div>
+
+  <button type="submit" id="submit">  <i class="fa fa-check" aria-hidden="true">Submit</i></button> <br>
+
+    <a id="back" href="/kompanii" type="button" class="btn btn-primary">Back</a>
+</form>

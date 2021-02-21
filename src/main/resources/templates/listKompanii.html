@@ -1,0 +1,38 @@
+<br>
+<div>
+    <div>
+        <!-- ProductsController.showAdd -->
+        <a href="/kompanii/add" sec:authorize="hasRole('ROLE_ADMIN')" class=" btn btn-secondary add-item" >
+            <i class="fa fa-bus" aria-hidden="true"> Додади нова компанија </i>
+        </a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+        <tr>
+
+            <th>Име</th>
+
+
+
+        </tr>
+            </thead>
+            <tbody>
+        <!-- For each product you should have one <tr> like below -->
+        <tr class="item" th:each="komp: ${kompanii}" >
+            <td th:text="${komp.ime_kompanija}"></td>
+            <td>
+                <!-- ProductsController.delete -->
+                <form th:method="POST" th:action="@{'/kompanii/{id}/delete' (id=${komp.id_kompanija})}" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <button type="submit" class="delete-item btn btn-danger">
+                        <i class="fa fa-trash"> Delete</i> </button>
+                </form>
+                <br>
+                <!-- ProductsController.showEdit -->
+                <a th:href="@{'/kompanii/{id}/edit' (id=${komp.id_kompanija})}" sec:authorize="hasRole('ROLE_ADMIN')" class="edit-item btn  btn-warning"> <i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
+            </td>
+        </tr>
+            </tbody>
+    </table>
+    </div>
+</div>

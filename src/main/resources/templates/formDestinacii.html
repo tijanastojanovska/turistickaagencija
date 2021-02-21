@@ -1,0 +1,40 @@
+
+<form th:method="POST" th:action="@{'/destinacii/{id}' (id=${destinacija?.id_destinacija})}">
+    <div>
+        <label for="ime_destinacija">Ime</label>
+        <input type="text"
+               id="ime_destinacija"
+               name="ime_destinacija"
+               th:value="${destinacija?.ime_destinacija}"
+               required>
+    </div>
+    <div>
+        <label for="drzhava">Drzhava</label>
+        <input type="text"
+               id="drzhava"
+               th:value="${destinacija?.drzhava}"
+               name="drzhava" required>
+    </div>
+    <div>
+        <label for="latitude">latitude</label>
+        <input type="text"
+               id="latitude"
+               th:value="${destinacija?.latitude}"
+               name="latitude" required>
+    </div>
+    <div>
+        <label for="longitude">longitude</label>
+        <input type="text"
+               id="longitude"
+               th:value="${destinacija?.longitude}"
+               name="longitude" required>
+    </div>
+    <button id="submit" type="submit">
+        <i class="fa fa-check" aria-hidden="true">Submit</i></button>
+    <br>
+    <a id="back" href="/destinacii" type="button" class="btn btn-primary">Back</a>
+</form>
+
+
+
+

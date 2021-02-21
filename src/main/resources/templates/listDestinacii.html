@@ -1,0 +1,60 @@
+<br>
+<div>
+    <!-- The form below should invoke the method ProductsController.showProducts -->
+    <form id="filter-form" >
+        <label for="name">Name</label>
+        <input id="name" type="text" name="name"/>
+        <button id="filter" type="submit" class="btn btn-secondary">
+            <i class="fa fa-search" aria-hidden="true">
+                 Search</i></button>
+    </form>
+
+    <div>
+        <!-- ProductsController.showAdd -->
+        <a href="/destinacii/add" sec:authorize="hasRole('ROLE_ADMIN')" class=" btn btn-secondary add-item" >
+            <i class="fa fa-map-marker" aria-hidden="true"> Додади нова дестинација </i>
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+        <tr>
+
+            <th>Име</th>
+            <th>Држава</th>
+            <th>latitude</th>
+            <th>longitude</th>
+
+
+        </tr>
+            </thead>
+        <tbody>
+        <!-- For each product you should have one <tr> like below -->
+        <tr class="item" th:each="dest: ${destinacii}" >
+            <td th:text="${dest.ime_destinacija}"></td>
+            <td th:text="${dest.drzhava}">
+</td>
+            <td th:text="${dest.latitude}">
+            </td>
+            <td th:text="${dest.longitude}">
+            </td>
+
+            <!--/*@thymesVar id="ime_destinacija" type=""*/-->
+            <td>
+                <!-- ProductsController.delete -->
+                <form th:method="POST" th:action="@{'/destinacii/{id}/delete' (id=${dest.id_destinacija})}" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <button type="submit" class="delete-item btn btn-danger">
+                        <i class="fa fa-trash"> Delete</i> </button>
+                </form>
+                <br>
+                <!-- ProductsController.showEdit -->
+                <a th:href="@{'/destinacii/{id}/edit' (id=${dest.id_destinacija})}" sec:authorize="hasRole('ROLE_ADMIN')" class="edit-item btn btn-warning">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+

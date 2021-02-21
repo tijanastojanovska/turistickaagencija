@@ -1,0 +1,38 @@
+
+ <div th:if="${hasError}">
+        <h5 class="text-center text-danger" th:text="${error}"></h5>
+    </div>
+
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col-12" th:if="${linii.size() > 0}">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+
+                            <th scope="col">Cena</th>
+                            <th scope="col">Pocetna</th>
+                            <th scope="col">Krajna</th>
+                            <th scope="col">Kompanii</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="lin : ${linii}" class="cart-item">
+                            <td th:text="${lin.cena}"></td>
+                            <td th:text="${lin.pocetna.ime_destinacija}"></td>
+                            <td th:text="${lin.krajna.ime_destinacija}"></td>
+                            <td th:each="komp: ${lin.kompanii}" th:value="${komp.id_kompanija}" th:text="${komp.ime_kompanija}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
