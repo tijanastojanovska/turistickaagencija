@@ -1,7 +1,7 @@
 
 <form th:method="POST" th:action="@{'/destinacii/{id}' (id=${destinacija?.id_destinacija})}">
     <div>
-        <label for="ime_destinacija">Ime</label>
+        <label for="ime_destinacija">Име</label>
         <input type="text"
                id="ime_destinacija"
                name="ime_destinacija"
@@ -10,7 +10,7 @@
     </div>
 
     <div>
-        <label for="drzhava">Drzhava</label>
+        <label for="drzhava">Држава</label>
         <input type="text"
                id="drzhava"
                th:value="${destinacija?.drzhava}"

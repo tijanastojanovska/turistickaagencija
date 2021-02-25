@@ -2,7 +2,7 @@
 <div>
     <!-- The form below should invoke the method ProductsController.showProducts -->
     <form id="filter-form" >
-        <label for="destinacijaId">Destinacija</label>
+        <label for="destinacijaId">Дестинација</label>
         <select id="destinacijaId" name="destinacijaId">
             <option th:value="0" text="Одберете дестинација"></option>
             <option th:each="dest: ${destinacii}" th:value="${dest.id_destinacija}" th:text="${dest.ime_destinacija}">

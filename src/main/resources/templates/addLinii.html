@@ -1,7 +1,7 @@
 <div xmlns:th="http://www.w3.org/1999/xhtml">
     <form th:method="POST"th:action="@{'/linii/{id}' (id=${linija?.id_linija})}" >
         <div>
-            <label for="vreme">Vreme</label>
+            <label for="vreme">Време</label>
             <input type="date"
                    id="vreme"
                    th:value="${linija?.vreme}"
@@ -10,7 +10,7 @@
         </div>
 
         <div>
-            <label for="cena">Price</label>
+            <label for="cena">Цена</label>
             <input type="number"
                    id="cena"
                    th:value="${linija?.cena}"
@@ -19,7 +19,7 @@
         </div>
 
         <div >
-            <label>Pocetna</label><br/>
+            <label>Почетна дестинација</label><br/>
             <select id="pocetna" name="pocetna"   multiple="multiple" size="5">
                 <!-- For each category you should have one <option> like below  -->
                 <option
@@ -28,14 +28,14 @@
         </div>
 
         <div>
-            <label>Krajna</label><br/>
+            <label>Крајна дестинација</label><br/>
             <select id="krajna" name="krajna" multiple="multiple" size="5">
                 <!-- For each category you should have one <option> like below  -->
                 <option th:each="dest: ${destinacii}"  th:value="${dest.id_destinacija}" th:text="${dest.ime_destinacija}"> </option>
             </select>
         </div>
         <div>
-            <label>Kompanii</label><br/>
+            <label>Компании</label><br/>
             <select id="kompanii" name="kompanii" multiple="multiple" size="5">
                 <!-- For each category you should have one <option> like below  -->
                 <option th:each="komp: ${kompanii}" th:value="${komp.id_kompanija}" th:text="${komp.ime_kompanija}"> </option>

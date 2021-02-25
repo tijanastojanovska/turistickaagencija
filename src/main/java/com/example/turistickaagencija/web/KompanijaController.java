@@ -39,7 +39,7 @@ private final LinijaService linijaService;
         model.addAttribute("adresi",adresi);
         List<Destinacija> destinacii=this.destinacijaService.listAll((long)0);
         model.addAttribute("destinacii",destinacii);
-            kompanii = this.kompanijaService.listAll(page);
+        kompanii = this.kompanijaService.listAll(page);
         brojNaKompanii= (long)this.kompanijaService.listAll((long) 0).size();
         List<Long> statistiki = this.linijaService.listCompanyStatisics();
         List<String> br = this.linijaService.listCompanies();
@@ -48,6 +48,7 @@ private final LinijaService linijaService;
 
 
         model.addAttribute("kompanii", kompanii);
+        model.addAttribute("brojNaKompanii", brojNaKompanii);
         model.addAttribute("bodyContent", "listKompanii");
         return "master-template";
     }
