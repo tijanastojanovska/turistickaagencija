@@ -30,7 +30,7 @@ public class HomeController {
     @GetMapping
     public String getHomePage(Model model) {
         List<Adresa> adresi=this.adresaService.listAll();
-        List<Destinacija> destinacii=this.destinacijaService.listAll();
+        List<Destinacija> destinacii=this.destinacijaService.listAll((long)0);
         List<Long> statistiki = this.linijaService.listCompanyStatisics();
         List<String> br = this.linijaService.listCompanies();
         model.addAttribute("statistiki",statistiki);
@@ -46,6 +46,11 @@ public class HomeController {
     public String getAccessDeniedPage(Model model) {
         model.addAttribute("bodyContent", "access_denied");
         return "master-template";
+    }
+
+    @GetMapping("/error")
+    public String getErrorPage(Model model) {
+        return "errorPage";
     }
 
 }

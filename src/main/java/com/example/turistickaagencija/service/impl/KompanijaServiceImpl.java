@@ -9,6 +9,7 @@ import com.example.turistickaagencija.service.KompanijaService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class KompanijaServiceImpl implements KompanijaService {
@@ -47,7 +48,15 @@ public class KompanijaServiceImpl implements KompanijaService {
 
 
     @Override
-    public List<Kompanija> listAll() {
-        return this.kompanijaRepository.findAll();
+    public List<Kompanija> listAll(Long page) {
+
+        if(page==0)
+            return this.kompanijaRepository.findAll();
+        else{
+            return this.kompanijaRepository.findAll()
+                    .stream().skip((page - 1) * 5)
+                    .limit(5)
+                    .collect(Collectors.toList());
+        }
     }
 }

@@ -31,14 +31,16 @@ private final LinijaService linijaService;
     }
 
 
-    @GetMapping("/kompanii")
-    public String showKompanii(Model model) {
+    @GetMapping("/kompanii/{page}")
+    public String showKompanii(Model model,@PathVariable(required = false) Long page) {
         List<Kompanija> kompanii;
+        Long brojNaKompanii;
         List<Adresa> adresi=this.adresaService.listAll();
         model.addAttribute("adresi",adresi);
-        List<Destinacija> destinacii=this.destinacijaService.listAll();
+        List<Destinacija> destinacii=this.destinacijaService.listAll((long)0);
         model.addAttribute("destinacii",destinacii);
-            kompanii = this.kompanijaService.listAll();
+            kompanii = this.kompanijaService.listAll(page);
+        brojNaKompanii= (long)this.kompanijaService.listAll((long) 0).size();
         List<Long> statistiki = this.linijaService.listCompanyStatisics();
         List<String> br = this.linijaService.listCompanies();
         model.addAttribute("statistiki",statistiki);
@@ -54,7 +56,7 @@ private final LinijaService linijaService;
     public String showAdd(Model model) {
         List<Adresa> adresi=this.adresaService.listAll();
         model.addAttribute("adresi",adresi);
-        List<Destinacija> destinacii=this.destinacijaService.listAll();
+        List<Destinacija> destinacii=this.destinacijaService.listAll((long)0);
         model.addAttribute("destinacii",destinacii);
         List<Long> statistiki = this.linijaService.listCompanyStatisics();
         List<String> br = this.linijaService.listCompanies();
@@ -69,7 +71,7 @@ private final LinijaService linijaService;
     public String showEdit(@PathVariable Long id, Model model) {
         List<Adresa> adresi=this.adresaService.listAll();
         model.addAttribute("adresi",adresi);
-        List<Destinacija> destinacii=this.destinacijaService.listAll();
+        List<Destinacija> destinacii=this.destinacijaService.listAll((long)0);
         model.addAttribute("destinacii",destinacii);
         Kompanija kompanija = this.kompanijaService.findById(id);
         model.addAttribute("kompanija", kompanija);
@@ -85,19 +87,19 @@ private final LinijaService linijaService;
     @PostMapping("/kompanii")
     public String create(@RequestParam String ime_kompanija) {
         this.kompanijaService.create(ime_kompanija);
-        return "redirect:/kompanii";
+        return "redirect:/kompanii/1";
     }
 
     @PostMapping("/kompanii/{id}")
     public String update(@PathVariable Long id,
                          @RequestParam String ime_kompanija) {
         this.kompanijaService.update(id, ime_kompanija);
-        return "redirect:/kompanii";
+        return "redirect:/kompanii/1";
     }
 
     @PostMapping("/kompanii/{id}/delete")
     public String delete(@PathVariable Long id) {
         this.kompanijaService.delete(id);
-        return "redirect:/kompanii";
+        return "redirect:/kompanii/1";
     }
 }

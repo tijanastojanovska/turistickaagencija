@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 @Entity
@@ -11,8 +12,8 @@ public class Linija {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_linija;
-    @DateTimeFormat (pattern="MM/dd/yyyy")
-    private Date vreme;
+    //@DateTimeFormat (pattern="MM/dd/yyyy")
+    private LocalDate vreme;
     private  float cena;
     @ManyToOne
     Destinacija pocetna;
@@ -26,15 +27,15 @@ public class Linija {
     public Linija() {
     }
 
-    public Date getVreme() {
+    public LocalDate getVreme() {
         return vreme;
     }
 
-    public void setVreme(Date vreme) {
+    public void setVreme(LocalDate vreme) {
         this.vreme = vreme;
     }
 
-    public Linija(Date vreme, float cena, Destinacija pocetna, Destinacija krajna, List<Kompanija> kompanii) {
+    public Linija(LocalDate vreme, float cena, Destinacija pocetna, Destinacija krajna, List<Kompanija> kompanii) {
         this.vreme = vreme;
         this.cena = cena;
         this.pocetna = pocetna;

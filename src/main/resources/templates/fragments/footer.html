@@ -6,7 +6,7 @@
             <div class="col-sm-4" id="mapid" style="width:30%; height: 300px;  margin-bottom: 20px"></div>
 
 
-            <div id="map" class="col-sm-4" style="width:30%; height: 300px;  margin-left: 40px; margin-bottom: 20px"></div>
+            <div id="map2" class="col-sm-4" style="width:30%; height: 300px;  margin-left: 40px; margin-bottom: 20px"></div>
 
             <script th:inline="javascript" >
                 var map = L.map('mapid', {center: [42.00311530048647,21.398902300000003], zoom: 13});
@@ -25,7 +25,7 @@
 
                 }
 
-                var mapd = L.map('map', {center: [42.00311530048647,21.398902300000003], zoom: 3});
+                var mapd = L.map('map2', {center: [42.00311530048647,21.398902300000003], zoom: 3});
                 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                     attribution: '© OpenStreetMap'
                 }).addTo(mapd);

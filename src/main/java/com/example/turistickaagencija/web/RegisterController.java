@@ -44,7 +44,7 @@ private final LinijaService linijaService;
         model.addAttribute("br",br);
         List<Adresa> adresi=this.adresaService.listAll();
         model.addAttribute("adresi",adresi);
-        List<Destinacija> destinacii=this.destinacijaService.listAll();
+        List<Destinacija> destinacii=this.destinacijaService.listAll((long)0);
         model.addAttribute("destinacii",destinacii);
         model.addAttribute("bodyContent","register");
         return "master-template";

@@ -9,5 +9,5 @@ public interface KompanijaService {
     Kompanija create(String ime);
     Kompanija update(Long id,String ime);
     Kompanija delete(Long id);
-    List<Kompanija> listAll();
+    List<Kompanija> listAll(Long page);
 }

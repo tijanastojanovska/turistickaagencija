@@ -34,5 +34,28 @@
         </tr>
             </tbody>
     </table>
+        <div class="strani">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+
+                </ul>
+            </nav>
+        </div>
+
+
+        <script th:inline="javascript">
+
+            //How many pages do we want?
+            elementCount = [[${brojNaLinii}]];
+            pageCount = Math.ceil(elementCount / 5);
+
+            //Add the buttons.
+            buttons = '';
+            for(i=1; i<=pageCount; i++) {
+                buttons += `<li class="page-item"><a class="page-link" href="/linii/${i}">${i}</a></li>`;
+            }
+            $('.pagination').first().html(buttons);
+        </script>
+
     </div>
 </div>

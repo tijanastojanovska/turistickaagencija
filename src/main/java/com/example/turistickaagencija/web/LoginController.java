@@ -41,7 +41,7 @@ private final LinijaService linijaService;
         List<String> br = this.linijaService.listCompanies();
         model.addAttribute("statistiki",statistiki);
         model.addAttribute("br",br);
-        List<Destinacija> destinacii=this.destinacijaService.listAll();
+        List<Destinacija> destinacii=this.destinacijaService.listAll((long)0);
         model.addAttribute("destinacii",destinacii);
         model.addAttribute("bodyContent","login");
         return "master-template";
