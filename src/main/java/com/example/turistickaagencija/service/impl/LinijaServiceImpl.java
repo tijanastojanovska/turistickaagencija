@@ -10,6 +10,7 @@ import com.example.turistickaagencija.repository.LinijaRepository;
 import com.example.turistickaagencija.service.LinijaService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -28,7 +29,7 @@ public class LinijaServiceImpl implements LinijaService {
     }
 
     @Override
-    public Linija create(Date vreme, float cena, Long pocetna, Long krajna, List<Long> kompanii) {
+    public Linija create(LocalDate vreme, float cena, Long pocetna, Long krajna, List<Long> kompanii) {
        Destinacija p=this.destinacijaRepository.findById(pocetna).get();
        Destinacija k=this.destinacijaRepository.findById(krajna).get();
         List<Kompanija> komp = this.kompanijaRepository.findAllById(kompanii);
@@ -37,7 +38,7 @@ public class LinijaServiceImpl implements LinijaService {
     }
 
     @Override
-    public Linija update(Long id,Date vreme,float cena,Long pocetna, Long krajna, List<Long> kompanii) {
+    public Linija update(Long id,LocalDate vreme,float cena,Long pocetna, Long krajna, List<Long> kompanii) {
         Linija linija = this.findById(id);
         linija.setCena(cena);
         Destinacija p=this.destinacijaRepository.findById(pocetna).get();
@@ -52,8 +53,16 @@ public class LinijaServiceImpl implements LinijaService {
     }
 
     @Override
-    public List<Linija> listAllLinii() {
-        return this.linijaRepository.findAll();
+    public List<Linija> listAllLinii(Long page) {
+        if(page == 0) {
+            return this.linijaRepository.findAll();
+        }
+        else{
+            return this.linijaRepository.findAll()
+                    .stream().skip((page-1)*5)
+                    .limit(5)
+                    .collect(Collectors.toList());
+        }
     }
 
     @Override
@@ -73,18 +82,22 @@ public class LinijaServiceImpl implements LinijaService {
     }
 
     @Override
-    public List<Linija> listLiniiByDestinacii(Long destinacijaId) {
+    public List<Linija> listLiniiByDestinacii(Long destinacijaId, Long page) {
         Destinacija destinacija = destinacijaId != null ? this.destinacijaRepository.findById(destinacijaId).orElse((Destinacija) null) : null;
-List<Linija> linii=new ArrayList<>();
-if(!this.linijaRepository.findAllByKrajna(destinacija).isEmpty())
-       linii.addAll(this.linijaRepository.findAllByKrajna(destinacija));
-        if(!this.linijaRepository.findAllByPocetna(destinacija).isEmpty())
+        List<Linija> linii = new ArrayList<>();
+        if (!this.linijaRepository.findAllByKrajna(destinacija).isEmpty())
+            linii.addAll(this.linijaRepository.findAllByKrajna(destinacija));
+        if (!this.linijaRepository.findAllByPocetna(destinacija).isEmpty())
             linii.addAll(this.linijaRepository.findAllByPocetna(destinacija));
-    return linii;
-
-
+        if (page == 0) {
+            return linii;
+        } else {
+            return linii.stream()
+                    .skip((page - 1) * 5)
+                    .limit(5)
+                    .collect(Collectors.toList());
+        }
     }
-
     @Override
     public List<Long> listCompanyStatisics() {
         List<Linija> linii = this.linijaRepository.findAll();

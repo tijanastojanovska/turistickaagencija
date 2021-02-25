@@ -1,7 +1,7 @@
 <br>
 <div>
     <!-- The form below should invoke the method ProductsController.showProducts -->
-    <form id="filter-form" >
+    <form id="filter-form">
         <label for="name">Name</label>
         <input id="name" type="text" name="name"/>
         <button id="filter" type="submit" class="btn btn-secondary">
@@ -55,6 +55,29 @@
         </tr>
         </tbody>
     </table>
+        <div class="strani">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+
+                </ul>
+            </nav>
+        </div>
+
+
+        <script th:inline="javascript">
+
+            //How many pages do we want?
+            elementCount = [[${brojNaDestinacii}]];
+            pageCount = Math.ceil(elementCount / 5);
+
+            //Add the buttons.
+            buttons = '';
+            for(i=1; i<=pageCount; i++) {
+                buttons += `<li class="page-item"><a class="page-link" href="/destinacii/${i}">${i}</a></li>`;
+            }
+            $('.pagination').first().html(buttons);
+        </script>
+
     </div>
 </div>
 

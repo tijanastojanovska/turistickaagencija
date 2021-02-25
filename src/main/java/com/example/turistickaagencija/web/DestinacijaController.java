@@ -30,21 +30,25 @@ public class DestinacijaController {
     }
 
 
-    @GetMapping("/destinacii")
-    public String showDestinacii(@RequestParam(required = false) String name, Model model) {
+    @GetMapping("/destinacii/{page}")
+    public String showDestinacii(@PathVariable(required = false) Long page,@RequestParam(required = false) String name, Model model) {
         List<Destinacija> destinacii;
+        Long brojNaDestinacii;
         List<Adresa> adresi=this.adresaService.listAll();List<Long> statistiki = this.linijaService.listCompanyStatisics();
         List<String> br = this.linijaService.listCompanies();
         model.addAttribute("statistiki",statistiki);
         model.addAttribute("br",br);
         model.addAttribute("adresi",adresi);
        if (name == null) {
-            destinacii= this.destinacijaService.listAll();
+            destinacii= this.destinacijaService.listAll(page);
+           brojNaDestinacii= (long)this.destinacijaService.listAll((long) 0).size();
        } else {
-            destinacii= this.destinacijaService.listAllByDrzhava(name);
-        }
+            destinacii= this.destinacijaService.listAllByDrzhava(name,page);
+           brojNaDestinacii= (long)this.destinacijaService.listAllByDrzhava(name,(long) 0).size();
+       }
 
         model.addAttribute("destinacii",destinacii);
+        model.addAttribute("brojNaDestinacii",brojNaDestinacii);
         model.addAttribute("bodyContent","listDestinacii");
         return "master-template";
     }
@@ -79,18 +83,18 @@ public class DestinacijaController {
     public String create(@RequestParam String ime_destinacija, @RequestParam String drzhava
             ,@RequestParam  Double latitude,@RequestParam Double longitude){
         this.destinacijaService.create(ime_destinacija,drzhava,latitude,longitude);
-        return "redirect:/destinacii";
+        return "redirect:/destinacii/1";
     }
     @PostMapping("/destinacii/{id}")
     public String update(@PathVariable Long id,
                          @RequestParam String ime_destinacija, @RequestParam String drzhava
             ,@RequestParam  Double latitude,@RequestParam Double longitude) {
         this.destinacijaService.update(id,ime_destinacija,drzhava,latitude,longitude);
-        return "redirect:/destinacii";
+        return "redirect:/destinacii/1";
     }
     @PostMapping("/destinacii/{id}/delete")
     public String delete(@PathVariable Long id) {
         this.destinacijaService.delete(id);
-        return "redirect:/destinacii";
+        return "redirect:/destinacii/1";
     }
 }

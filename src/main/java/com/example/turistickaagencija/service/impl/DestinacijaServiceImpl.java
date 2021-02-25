@@ -7,6 +7,7 @@ import com.example.turistickaagencija.service.DestinacijaService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DestinacijaServiceImpl implements DestinacijaService {
@@ -46,12 +47,27 @@ public class DestinacijaServiceImpl implements DestinacijaService {
     }
 
     @Override
-    public List<Destinacija> listAll() {
-        return  this.destinacijaRepository.findAll();
+    public List<Destinacija> listAll(Long page) {
+
+        if (page == 0) {
+            return this.destinacijaRepository.findAll();
+        } else {
+            return this.destinacijaRepository.findAll()
+                    .stream().skip((page - 1) * 5)
+                    .limit(5)
+                    .collect(Collectors.toList());
+        }
     }
 
     @Override
-    public List<Destinacija> listAllByDrzhava(String name) {
+    public List<Destinacija> listAllByDrzhava(String name, Long page) {
+        if(page==0)
         return this.destinacijaRepository.findAllByDrzhavaContaining(name);
+        else{
+            return this.destinacijaRepository.findAllByDrzhavaContaining(name)
+                    .stream().skip((page - 1) * 5)
+                    .limit(5)
+                    .collect(Collectors.toList());
+        }
     }
 }

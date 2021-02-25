@@ -9,6 +9,6 @@ public interface DestinacijaService {
     Destinacija update(Long id,String ime,String drzhava,Double latitude, Double longitude);
     Destinacija delete(Long destinacijaId);
     Destinacija findById(Long destinacijaId);
-    List<Destinacija> listAll();
-    List<Destinacija> listAllByDrzhava(String name);
+    List<Destinacija> listAll(Long page);
+    List<Destinacija> listAllByDrzhava(String name,Long page);
 }

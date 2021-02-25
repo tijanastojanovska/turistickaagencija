@@ -1,12 +1,12 @@
 <div xmlns:th="http://www.w3.org/1999/xhtml">
-    <form th:method="POST"th:action="@{'/linii/{id}' (id=${linija?.id_linija})}">
+    <form th:method="POST"th:action="@{'/linii/{id}' (id=${linija?.id_linija})}" >
         <div>
             <label for="vreme">Vreme</label>
-            <input type="text"
+            <input type="date"
                    id="vreme"
                    th:value="${linija?.vreme}"
                    name="vreme"
-                   required>
+                  >
         </div>
 
         <div>
@@ -42,7 +42,7 @@
             </select>
         </div>
 
-        <button id="submit" type="submit">Submit</button>
-        <a id="back" href="/linii" type="button" class="btn btn-primary">Back</a>
+        <button id="submit"class="btn btn-info mb-2" type="submit">Submit</button>
+        <a id="back" href="/linii/1" type="button" class="btn btn-primary mb-2">Back</a>
     </form>
 </div>

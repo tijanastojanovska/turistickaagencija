@@ -19,8 +19,9 @@
             <i class="fa fa-globe" aria-hidden="true"> Додади нова линија </i>
         </a>
     </div>
+
     <div class="table-responsive">
-    <table class="table table-striped" id="linii">
+    <table class="table table-striped display table" id="Tabelalinii">
         <thead>
         <tr>
             <th>Датум</th>
@@ -36,7 +37,9 @@
 
 
         <tr class="item" th:each="lin: ${linii}" >
-            <td th:text="${#dates.format(lin.vreme, 'MM/dd/yyyy')}" >
+<!--            <td th:text="${#dates.format(lin.vreme, 'MM/dd/yyyy')}" >-->
+
+            <td th:text="${lin?.vreme}">
 
             </td>
             <td th:text="${lin.cena}">[lin.cena]</td>
@@ -75,5 +78,30 @@
         </tr>
         </tbody>
     </table>
-    </div>
+
+        <div class="strani">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+
+                </ul>
+            </nav>
+        </div>
+
+
+   <script th:inline="javascript">
+
+       //How many pages do we want?
+       elementCount = [[${brojNaLinii}]];
+       pageCount = Math.ceil(elementCount / 5);
+
+       //Add the buttons.
+       buttons = '';
+       for(i=1; i<=pageCount; i++) {
+           buttons += `<li class="page-item"><a class="page-link" href="/linii/${i}">${i}</a></li>`;
+       }
+       $('.pagination').first().html(buttons);
+   </script>
+
+
+</div>
 </div>

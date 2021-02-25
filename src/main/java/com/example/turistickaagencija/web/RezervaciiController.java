@@ -45,7 +45,7 @@ public class RezervaciiController {
         String username = req.getRemoteUser();
         List<Adresa> adresi=this.adresaService.listAll();
         model.addAttribute("adresi",adresi);
-        List<Destinacija> destinacii=this.destinacijaService.listAll();
+        List<Destinacija> destinacii=this.destinacijaService.listAll((long)0);
         model.addAttribute("destinacii",destinacii);
         Rezervacii rezervacii = this.rezervaciiService.getActiveRezervacii(username);
         model.addAttribute("linii", this.rezervaciiService.listAllReservations(rezervacii.getId()));
