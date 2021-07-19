@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -34,7 +35,10 @@ private final LinijaService linijaService;
     }
 
     @GetMapping
-    public String getLoginPage(Model model) {
+    public String getLoginPage(Model model,@RequestParam(required = false) String error) {
+        if (error != null && !error.isEmpty()) {
+            model.addAttribute("hasError", true);
+            model.addAttribute("error", error);}
         List<Adresa> adresi=this.adresaService.listAll();
         model.addAttribute("adresi",adresi);
         List<Long> statistiki = this.linijaService.listCompanyStatisics();
@@ -57,9 +61,9 @@ private final LinijaService linijaService;
             return "redirect:/home";
         }
         catch (InvalidUserCredentialsException exception) {
-            model.addAttribute("hasError", true);
-            model.addAttribute("error", exception.getMessage());
-            return "login";
+           // model.addAttribute("hasError", true);
+          //  model.addAttribute("error", exception.getMessage());
+            return "redirect:/login?error=" + exception.getMessage();
         }
     }
 }

@@ -8,20 +8,20 @@
             <option th:each="dest: ${destinacii}" th:value="${dest.id_destinacija}" th:text="${dest.ime_destinacija}">
                 Одберете дестинација</option>
         </select>
-        <button id="filter" type="submit" class="btn btn-info">
+        <button id="filter" name="filter" type="submit" class="btn btn-info">
             <i class="fa fa-filter" aria-hidden="true"> Filter
             </i></button>
     </form>
     <br>
     <div>
         <!-- ProductsController.showAdd -->
-        <a href="/linii/add" sec:authorize="hasRole('ROLE_ADMIN')" class=" btn btn-secondary add-item" >
+        <a href="/linii/add" sec:authorize="hasRole('ROLE_ADMIN')" name="dodadiLinija" class=" btn btn-secondary add-item" >
             <i class="fa fa-globe" aria-hidden="true"> Додади нова линија </i>
         </a>
     </div>
 
     <div class="table-responsive">
-    <table class="table table-striped display table" id="Tabelalinii">
+    <table class="table table-striped display table" name="tableLinii" id="Tabelalinii">
         <thead>
         <tr>
             <th>Датум</th>
@@ -66,12 +66,12 @@
                 <br>
                 <!-- ProductsController.delete -->
                 <form th:method="POST" th:action="@{'/linii/{id}/delete' (id=${lin.id_linija})}" sec:authorize="hasRole('ROLE_ADMIN')">
-                    <button type="submit" class="delete-item btn btn-danger">
-                        <i class="fa fa-trash"> Delete</i> </button>
+                    <button type="submit" title="Delete" class="delete-item btn btn-danger">
+                        <i class="fa fa-trash">Delete</i> </button>
                 </form>
                 <br>
                 <!-- ProductsController.showEdit -->
-                <a th:href="@{'/linii/{id}/edit' (id=${lin.id_linija})}" sec:authorize="hasRole('ROLE_ADMIN')" class="edit-item btn btn-warning">
+                <a th:href="@{'/linii/{id}/edit' (id=${lin.id_linija})}"  title="Edit"  sec:authorize="hasRole('ROLE_ADMIN')" class="edit-item btn btn-warning">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i>
                 </a>
             </td>

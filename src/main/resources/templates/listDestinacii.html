@@ -4,14 +4,14 @@
     <form id="filter-form">
         <label for="name">Име</label>
         <input id="name" type="text" name="name"/>
-        <button id="filter" type="submit" class="btn btn-secondary">
+        <button id="filter" name="searchDest" type="submit" class="btn btn-secondary">
             <i class="fa fa-search" aria-hidden="true">
                  Search</i></button>
     </form>
 
     <div>
         <!-- ProductsController.showAdd -->
-        <a href="/destinacii/add" sec:authorize="hasRole('ROLE_ADMIN')" class=" btn btn-secondary add-item" >
+        <a href="/destinacii/add" name="dodadiDestinacija" sec:authorize="hasRole('ROLE_ADMIN')" class=" btn btn-secondary add-item" >
             <i class="fa fa-map-marker" aria-hidden="true"> Додади нова дестинација </i>
         </a>
     </div>
@@ -44,12 +44,12 @@
             <td>
                 <!-- ProductsController.delete -->
                 <form th:method="POST" th:action="@{'/destinacii/{id}/delete' (id=${dest.id_destinacija})}" sec:authorize="hasRole('ROLE_ADMIN')">
-                    <button type="submit" class="delete-item btn btn-danger">
+                    <button type="submit" title="Delete" class="delete-item btn btn-danger">
                         <i class="fa fa-trash"> Delete</i> </button>
                 </form>
                 <br>
                 <!-- ProductsController.showEdit -->
-                <a th:href="@{'/destinacii/{id}/edit' (id=${dest.id_destinacija})}" sec:authorize="hasRole('ROLE_ADMIN')" class="edit-item btn btn-warning">
+                <a th:href="@{'/destinacii/{id}/edit' (id=${dest.id_destinacija})}" sec:authorize="hasRole('ROLE_ADMIN')" title="Edit" class="edit-item btn btn-warning">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
             </td>
         </tr>
