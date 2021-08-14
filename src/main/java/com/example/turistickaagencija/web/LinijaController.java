@@ -121,7 +121,7 @@ public class LinijaController {
         return "redirect:/linii/1";
     }
     @PostMapping("/linii/{id}/delete")
-    public String delete(@PathVariable Long id,@PathVariable(required = false) Long page) {
+    public String delete(@PathVariable Long id, @PathVariable(required = false) Long page) {
         try{
             this.service.delete(id);
             return "redirect:/linii/1";

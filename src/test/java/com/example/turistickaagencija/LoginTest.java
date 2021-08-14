@@ -52,8 +52,8 @@ public class LoginTest {
         loginPage.login("", "");
         assertTrue(loginPage.isLoaded());
     }
-//vnes na validni podatoci
- @Test
+    //vnes na validni podatoci
+    @Test
     public void UspeshenLogin() throws InterruptedException {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.open();
