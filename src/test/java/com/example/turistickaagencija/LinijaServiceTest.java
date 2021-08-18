@@ -71,7 +71,7 @@ public class LinijaServiceTest {
                 linija.getPocetna().getId_destinacija(), linija.getKrajna().getId_destinacija(),
                 linija.getKompanii().stream()
                         .map(kompanija -> kompanija.getId_kompanija()).collect(Collectors.toList()));
-        Assert.assertEquals(999, linijaService.findById(Long.valueOf(1)).getCena(), 0);
+        Assert.assertEquals(999, linijaService.findById(linija.getId_linija()).getCena(), 0);
     }
 
     @Test
@@ -164,5 +164,47 @@ public class LinijaServiceTest {
                 kompanijaService.listAll(Long.valueOf(1)).stream()
                         .map(kompanija -> kompanija.getId_kompanija()).collect(Collectors.toList()));
         Assert.assertEquals(linija.getId_linija(), linijaService.findById(linija.getId_linija()).getId_linija());
+    }
+
+    @Test
+    public void testListByDestinacii() {
+        linijaService.create(LocalDate.now(), 99,
+                destinacijaService.listAll(Long.valueOf(1)).get(0).getId_destinacija(),
+                destinacijaService.listAll(Long.valueOf(1)).get(1).getId_destinacija(),
+                kompanijaService.listAll(Long.valueOf(1)).stream()
+                        .map(kompanija -> kompanija.getId_kompanija()).collect(Collectors.toList()));
+        linijaService.create(LocalDate.now(), 99,
+                destinacijaService.listAll(Long.valueOf(1)).get(0).getId_destinacija(),
+                destinacijaService.listAll(Long.valueOf(1)).get(2).getId_destinacija(),
+                kompanijaService.listAll(Long.valueOf(1)).stream()
+                        .map(kompanija -> kompanija.getId_kompanija()).collect(Collectors.toList()));
+        linijaService.create(LocalDate.now(), 99,
+                destinacijaService.listAll(Long.valueOf(1)).get(0).getId_destinacija(),
+                destinacijaService.listAll(Long.valueOf(1)).get(3).getId_destinacija(),
+                kompanijaService.listAll(Long.valueOf(1)).stream()
+                        .map(kompanija -> kompanija.getId_kompanija()).collect(Collectors.toList()));
+        linijaService.create(LocalDate.now(), 99,
+                destinacijaService.listAll(Long.valueOf(1)).get(0).getId_destinacija(),
+                destinacijaService.listAll(Long.valueOf(1)).get(4).getId_destinacija(),
+                kompanijaService.listAll(Long.valueOf(1)).stream()
+                        .map(kompanija -> kompanija.getId_kompanija()).collect(Collectors.toList()));
+        linijaService.create(LocalDate.now(), 99,
+                destinacijaService.listAll(Long.valueOf(1)).get(1).getId_destinacija(),
+                destinacijaService.listAll(Long.valueOf(1)).get(4).getId_destinacija(),
+                kompanijaService.listAll(Long.valueOf(1)).stream()
+                        .map(kompanija -> kompanija.getId_kompanija()).collect(Collectors.toList()));
+        linijaService.create(LocalDate.now(), 99,
+                destinacijaService.listAll(Long.valueOf(1)).get(1).getId_destinacija(),
+                destinacijaService.listAll(Long.valueOf(1)).get(2).getId_destinacija(),
+                kompanijaService.listAll(Long.valueOf(1)).stream()
+                        .map(kompanija -> kompanija.getId_kompanija()).collect(Collectors.toList()));
+        linijaService.create(LocalDate.now(), 99,
+                destinacijaService.listAll(Long.valueOf(1)).get(1).getId_destinacija(),
+                destinacijaService.listAll(Long.valueOf(1)).get(0).getId_destinacija(),
+                kompanijaService.listAll(Long.valueOf(1)).stream()
+                        .map(kompanija -> kompanija.getId_kompanija()).collect(Collectors.toList()));
+        Assert.assertEquals(2, linijaService
+                .listLiniiByDestinacii(destinacijaService.listAll(Long.valueOf(1)).get(4).getId_destinacija(),
+                        Long.valueOf(1)).size());
     }
 }
