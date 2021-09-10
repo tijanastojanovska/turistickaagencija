@@ -20,9 +20,6 @@ public class LiniiTest {
     public void setup() {
         driver = getDriver();
     }
-
-
-
     private void assertTrue(boolean loaded) {
     }
 
@@ -31,7 +28,6 @@ public class LiniiTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.open();
         loginPage.isLoaded();
-       // assertTrue(loginPage.isLoaded());
         loginPage.login("tijana", "Test123!");
         LiniiPage liniiPage=new LiniiPage(driver);
         liniiPage.dodadiLinija();
@@ -70,8 +66,7 @@ public class LiniiTest {
             liniiPage.daliSePrikazuva();
         });
     }
-
-    @Test
+ @Test
     public void AdminReserveTest() throws InterruptedException {
 //        LoginPage loginPage = new LoginPage(driver);
 //        loginPage.open();
@@ -86,7 +81,6 @@ public class LiniiTest {
 
     }
     @Test
-
     public void UserDeleteTest() throws InterruptedException {
         LiniiPage liniiPage = new LiniiPage(driver);
         liniiPage.logout();
@@ -100,8 +94,7 @@ public class LiniiTest {
 
     }
     @Test
-
-    public void UserEditTest() throws InterruptedException {
+  public void UserEditTest() throws InterruptedException {
         LiniiPage liniiPage = new LiniiPage(driver);
         assertThrows(NoSuchElementException.class, () ->{
             liniiPage.edit();
@@ -109,13 +102,11 @@ public class LiniiTest {
 
     }
     @Test
-
-    public void UserFilterTest() throws InterruptedException {
+public void UserFilterTest() throws InterruptedException {
         LiniiPage liniiPage = new LiniiPage(driver);
        liniiPage.filter();
        assertTrue(liniiPage.isFiltered());
-
-    }
+ }
 @Test
 public void UserReserveTest() throws InterruptedException {
     LiniiPage liniiPage=new LiniiPage(driver);
@@ -123,7 +114,6 @@ public void UserReserveTest() throws InterruptedException {
     ReservationPage reservationPage=new ReservationPage(driver);
     liniiPage.reserve();
     assertTrue(reservationPage.isLoaded());
-
 }
 
 

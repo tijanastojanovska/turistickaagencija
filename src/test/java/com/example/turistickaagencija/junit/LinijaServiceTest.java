@@ -1,4 +1,4 @@
-package com.example.turistickaagencija;
+package com.example.turistickaagencija.junit;
 
 import com.example.turistickaagencija.model.Linija;
 import com.example.turistickaagencija.repository.LinijaRepository;
@@ -12,11 +12,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
 import java.util.stream.Collectors;
 
 @SpringBootTest
+@ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class LinijaServiceTest {
 

@@ -4,11 +4,13 @@ import com.example.turistickaagencija.enumerations.Role;
 import com.example.turistickaagencija.model.Destinacija;
 import com.example.turistickaagencija.model.Kompanija;
 import com.example.turistickaagencija.model.Linija;
+import com.example.turistickaagencija.model.User;
 import com.example.turistickaagencija.service.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
+@ActiveProfiles("test")
 class TuristickaagencijaApplicationTests {
 
     MockMvc mockMvc;
@@ -127,5 +130,20 @@ class TuristickaagencijaApplicationTests {
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/linii/1"));
     }
+    @Test
+    public void testLoginRedirect() throws Exception {
+       MockHttpServletRequestBuilder createLogin = MockMvcRequestBuilders
+                .post("/login");
+ User user = userService.register("test","test","test","test","test",Role.ROLE_ADMIN);
+ this.mockMvc.perform(createLogin
+                .param("username", user.getUsername())
+                .param("password", user.getPassword()))
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/home"));}
+    @Test
+    public void testNotLoggedInUserAccess() throws Exception {
+        MockHttpServletRequestBuilder createLogin = MockMvcRequestBuilders
+                .post("/linii/1");
 
-}
+        this.mockMvc.perform(createLogin)
+                .andExpect(MockMvcResultMatchers.status().is4xxClientError()); }}

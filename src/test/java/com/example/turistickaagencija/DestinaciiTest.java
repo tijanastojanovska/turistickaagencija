@@ -38,7 +38,6 @@ public class DestinaciiTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.open();
         loginPage.isLoaded();
-        // assertTrue(loginPage.isLoaded());
         loginPage.login("tijana", "Test123!");
         DestinaciiPage destinaciiPage=new DestinaciiPage(driver);
         destinaciiPage.isLoaded();
@@ -75,9 +74,7 @@ public class DestinaciiTest {
             destinaciiPage.uspesenSearch();
         });
     }
-
     @Test
-
     public void UserDeleteTest() throws InterruptedException {
         LiniiPage liniiPage = new LiniiPage(driver);
         DestinaciiPage destinaciiPage = new DestinaciiPage(driver);
